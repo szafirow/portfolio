@@ -1,0 +1,34 @@
+---Nie rozumiem tej maniery ³adowania wszystkich dostêpnych bibliotek i korzystanie z 1% ich mo¿liwoœci. To totalny bezsens, to tak jakbyœ chcia³ siê napiæ piwa i kupowa³ ca³y browar, lub jakbyœ siê ¿eni³ chc¹c tylko... Sam Twój CSS zajmuje 300 kilo :shock: A spokojnie zamkn¹ byœ siê w 30 - 40 kilo 8) I jakie wymyœlanie ko³a? Ty wedle podes³anego projektu graficznego masz zbudowaæ wóz, a kupujesz samochód i wywalasz z niego wszystko prócz kó³ i karoserii z odciêtym dachem. Je¿eli chcesz u¿ywaæ siatki skorzystaj z http://flexboxgrid.com/ . 
+
+---U¿ywasz kilku animacji, to odnajdŸ te animacje w pliku i tylko je zaimplementuj to samy tyczy siê do metod js.
+
+
+---to le¿y typografia która jest wa¿na w odbiorze informacji na stronie jak nie najwa¿niejsza.
+
+
+--Co to ma byæ w topie? Da³eœ repeat na t³o, brzydko. 
+
+---Kolor linków po najechaniu gryzie siê z t³em. 
+
+---Sekcja o mnie, do poprawy czemu taka w¹skie te kolumny, u mnie na monitorze wygl¹da to œmiesznie. 
+
+---Moje CV po najechaniu gryzie siê. W sekcji z licznikami osi¹gniêæ, przyda³by siê jakieœ fajne lekkie animacje. 
+
+---W ofercie typografia, bardzo s³abo. 
+
+
+---Czemu ten plus nie jest na œrodku kuli? 
+
+
+---Nie k³am ludzi, nie masz doœwiadczenia w RWD gdy¿ jest niepoprawnie wykonane na pierwszy rzut oka, po zmniejszeniu okna pojawia siê poziomy scroll. 
+
+
+----Odnoœnie tabów z projektami, je¿eli nie ma projektów po co te przyciski? Jak¹ spe³niaj¹ funkcjonalnoœæ? Pokazuj¹ "nic" po klikniêciu? 
+
+---Odnoœnie przycisków spo³ecznoœciowych, nie mo¿na przedstawiaæ ich logo na tle które nie znajduje siê w ich ksiêdze znaków, b¹dŸ zasad u¿ywanie logotypów na stronie, kiedyœ mia³em z tym problemy. 
+
+
+---Po co prze³adowywaæ stronê wysy³aj¹c pusty formularz? 
+
+
+----Je¿eli na powa¿nie chcesz siê zaj¹æ projektowaniem stron to musisz zainwestowaæ w hosting.

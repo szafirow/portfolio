@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}
+        <!-- CSS -->
+        <link href="{{ site_url('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ base_url('assets/css/styles.css') }}" rel="stylesheet">
+        <link href="{{ base_url('assets/css/materialdesignicons.min.css') }}" media="all" rel="stylesheet"
+              type="text/css"/>
+        <link href="{{ base_url('assets/css/lightbox.min.css') }}" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    {% endblock %}
+
+
+    {#<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>#}
+</head>
+<body>
+
+{% block body %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ base_url('assets/js/jquery.min.js') }}"></script>
+    <script src="{{ base_url('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ base_url('assets/js/mine.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('body').scrollspy({
+                target: ".navbar-fixed-top",
+                offset: 10
+            });
+        });
+    </script>
+    <script src="{{ base_url('assets/js/lightbox.min.js') }}"></script>
+    <script src="{{ base_url('assets/js/conctact_me.js') }}"></script>
+{% endblock %}
+
+</body>
+</html>
+
+
+

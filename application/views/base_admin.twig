@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    {% block stylesheets %}
+        <!-- CSS -->
+        <link href="{{ site_url('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ site_url('assets/css/admin.css') }}" rel="stylesheet">
+        <link href="{{ site_url('assets/css/admin-style.css') }}" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <!-- Google Font -->
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    {% endblock %}
+
+
+</head>
+<body class="hold-transition skin sidebar-mini">
+
+{% block body %}
+{% endblock %}
+
+
+{% block javascripts %}
+<!-- JavaScript -->
+<script src="{{ base_url('assets/js/jquery.min.js') }}"></script>
+<script src="{{ base_url('assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ base_url('assets/js/admin.js') }}"></script>
+<script src="{{ base_url('assets/js/fileinput.min.js') }}"></script>
+<script>
+    $(document).ready(function () {
+
+        $("#upload-image").fileinput({
+            autoReplace: true,
+            maxImageWidth: 280,
+            maxImageHeight: 280,
+            maxFileCount: 1,
+            allowedFileExtensions: ["jpeg", "jpg", "png", "gif"],
+            showUpload: false,
+            browseOnZoneClick: true,
+            dropZoneTitle: 'Przeciągnij i upuść zdjęcie ',
+            dropZoneClickTitle: 'lub kliknij i wybierz plik.',
+            layoutTemplates:
+                {
+                    actions: '<div class="file-actions">\n' +
+                    '    <div class="file-footer-buttons">\n' +
+                    '       {delete} {zoom} ' +
+                    '    </div>\n' +
+                    '    {drag}\n' +
+                    '    <div class="file-upload-indicator" title="{indicatorTitle}">{indicator}</div>\n' +
+                    '    <div class="clearfix"></div>\n' +
+                    '</div>',
+                    btnDefault: '<button type="{type}" tabindex="500" title="{title}" class="{css}"{status}>{icon}{label}</button>',
+                    btnLink: '<a href="{href}" tabindex="500" title="{title}" class="{css}"{status}>{icon}{label}</a>',
+                    btnBrowse: '<div tabindex="500" class="{css}"{status}>{icon}{label}</div>',
+                }
+        });
+
+    });
+
+</script>
+{% endblock %}
+
+
+</body>
+</html>
+
+
