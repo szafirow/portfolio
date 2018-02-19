@@ -43,7 +43,8 @@ class Twig
     {
         // default config
         $this->config = [
-            'functions' => ['base_url'],
+            'functions' => ['base_url','lang'],
+            'functions_safe' => ['lang'],
             'paths' => array(VIEWPATH),
             'cache' => APPPATH . 'cache/twig',
             'auto_reload' => true

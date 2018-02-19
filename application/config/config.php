@@ -324,7 +324,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = 'rrXddsfse5234$**5rewrqeWrd#@$#reaed1!#d';
 
 /*
 |--------------------------------------------------------------------------
@@ -377,13 +377,20 @@ $config['encryption_key'] = '';
 | except for 'cookie_prefix' and 'cookie_httponly', which are ignored here.
 |
 */
-$config['sess_driver'] = 'files';
-$config['sess_cookie_name'] = 'ci_session';
+
+
+$config['sess_cookie_name'] = 'ci_sessions';
 $config['sess_expiration'] = 7200;
-$config['sess_save_path'] = NULL;
+$config['sess_expire_on_close'] = FALSE;
+$config['sess_encrypt_cookie'] = FALSE;
+$config['sess_use_database'] = TRUE;
+$config['sess_table_name'] = 'ci_sessions';
 $config['sess_match_ip'] = FALSE;
+$config['sess_match_useragent'] = TRUE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -401,7 +408,7 @@ $config['sess_regenerate_destroy'] = FALSE;
 |
 */
 $config['cookie_prefix']	= '';
-$config['cookie_domain']	= '';
+//$config['cookie_domain']    = 'http://localhost:8016/portfolio/';
 $config['cookie_path']		= '/';
 $config['cookie_secure']	= FALSE;
 $config['cookie_httponly'] 	= FALSE;
@@ -521,3 +528,17 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+/*Autoload Class*/
+function __autoload($classname)
+{
+    if (strpos($classname, 'CI_') !== 0) {
+        $path = array('libraries');
+        foreach ($path as $dir) {
+            $file = APPPATH . $dir . "/" . $classname . '.php';
+        }
+        if (file_exists($file) && is_file($file)) {
+            @require_once $file;
+        }
+    }
+}

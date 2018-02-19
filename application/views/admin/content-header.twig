@@ -1,4 +1,21 @@
 <section class="content-header">
+
+{{ dump(session) }}
+    <div class="row">
+        <div class="col-md-12">
+                            {% if  session.flashdata.item %}
+                                <div class="alert alert-{{ session.flashdata.item['class'] }} alert-dismissable"
+                                     role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                                aria-hidden="true"
+                                                style="color: #000;">×</span>
+                                    </button>
+                                    <p class="alert-body">{{ session.flashdata.item['message'] }}</p>
+                                </div>
+                            {% endif %}
+
+         </div>
+          </div>
    {# <?php
     echo generateBreadcrumb();
     ?>

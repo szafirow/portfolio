@@ -55,5 +55,5 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['admin'] = 'admin/dashboard';
 
-$route['(:any)'] = "frontend/pages/$1";
+//$route['(:any)'] = "frontend/pages/$1";
 
