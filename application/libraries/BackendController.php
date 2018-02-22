@@ -12,5 +12,7 @@ class BackendController extends MY_Controller
     {
         parent::__construct();
         $this->is_logged_in();
+        $this->twig->addGlobal("uri_2", $uri = $this->uri->segment(2));
+        $this->twig->addGlobal("uri_3", $uri = $this->uri->segment(2));
     }
 }

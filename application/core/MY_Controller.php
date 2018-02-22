@@ -18,17 +18,14 @@ class MY_Controller extends CI_Controller
     }
 
 
-      function is_logged_in()
-      {
-          $logged_in = $this->session->userdata('logged_in');
-          if (empty($logged_in)) {
-              show_error('You don\'t have permission to access this page.', 401);
-              die();
-          }
-      }
-
-
-
+    function is_logged_in()
+    {
+        $logged_in = $this->session->userdata('logged_in');
+        if (empty($logged_in)) {
+            show_error('You don\'t have permission to access this page.', 401);
+            die();
+        }
+    }
 
 
 }
