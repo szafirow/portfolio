@@ -18,19 +18,34 @@
                     <tr>
                         <th><em class="fa fa-cog"></em></th>
                         <th class="hidden-xs">ID</th>
-                        <th>Name</th>
+                        <th>IDENT</th>
                         <th>Email</th>
+                        <th>Imię</th>
+                        <th>Nazwisko</th>
+                        <th>Pozycja</th>
                     </tr>
                     </thead>
                     <tbody>
+                    {% for user in users %}
                     <tr>
                         <td align="left">
-                            <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                            <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+                            <a class="btn btn-xs btn-success"><em class="fa fa-check"></em></a>
+                            <a class="btn btn-xs btn-default"><em class="fa fa-pencil"></em></a>
+                            <a class="btn btn-xs btn-danger"><em class="fa fa-trash"></em></a>
                         </td>
-                        <td class="hidden-xs">1</td>
-                        <td>John Doe</td>
-                        <td>johndoe@example.com</td>
+
+                      {#  {{ dump(users) }}#}
+
+                            <td class="hidden-xs">{{ user.id }}</td>
+                            <td>{{ user.ident }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.surname }}</td>
+                            <td>{{ user.description }}</td>
+                        {% endfor %}
+
+
+
                     </tr>
                     </tbody>
                 </table>

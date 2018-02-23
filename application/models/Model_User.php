@@ -70,7 +70,7 @@ class Model_User extends MY_Model
 
     public function read_personal_data($id)
     {
-        $this->db->select('first_name,last_name');
+        $this->db->select('name,surname');
         $this->db->from('users');
         $this->db->where('id', $id);
         $this->db->limit(1);
@@ -82,10 +82,6 @@ class Model_User extends MY_Model
             return false;
         }
     }
-
-
-
-
 
     public function isset_email()
     {
@@ -103,6 +99,23 @@ class Model_User extends MY_Model
             return FALSE;
         }
     }
+
+
+
+    public function show_users(){
+
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->join('users_groups', 'users.id = users_groups.user_id');
+        $this->db->join('groups', 'groups.id = users_groups.group_id');
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+    }
+
+
 
 
 }
