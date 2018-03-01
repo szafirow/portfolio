@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col col-xs-6">
+                        <h3 class="panel-title">Nowy użytkownik</h3>
+                    </div>
+                    <div class="col col-xs-6 text-right">
+                        <a href="{{ base_url('admin/user/create') }}" class="btn btn-sm btn-primary btn-create">Nowe
+                            konto</a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                             <form role="form" action="{{ base_url('admin/user/create') }}" accept-charset="UTF-8"
+                          method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="text" class="form-control" name="email" id="email" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label for="ident">IDENT:</label>
+                                <input type="text" class="form-control" name="ident" id="ident">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Imię:</label>
+                                <input type="text" class="form-control" name="name" id="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="surname">Nazwisko:</label>
+                                <input type="text" class="form-control" name="surname" id="surname">
+                            </div>
+                             <div class="form-group">
+                                <label for="company">Firma:</label>
+                                <input type="text" class="form-control" name="company" id="company">
+                            </div>
+                             <div class="form-group">
+                                <label for="phone">Telefon:</label>
+                                <input type="text" class="form-control" name="phone" id="phone">
+                            </div>
+                             <div class="form-group">
+                                <label for="company">AKTYNWY?-pole wyboru checked:</label>
+                                <input type="text" class="form-control" name="company" id="company">
+                            </div>
+                            <div class="form-group">
+                                <label for="company">przypis do grupy admin/members:</label>
+                                <input type="text" class="form-control" name="company" id="company">
+                            </div>
+                            <div class="form-group">
+                                  <input type="submit" class="btn btn-danger-pro btn-block" value="ZAPISZ">
+                            </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    {% if pagination is not null %}
+                        {{ pagination|raw }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

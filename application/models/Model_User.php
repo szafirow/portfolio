@@ -102,17 +102,40 @@ class Model_User extends MY_Model
 
 
 
-    public function show_users(){
-
-        $this->db->select('*');
-        $this->db->from('users');
-        $this->db->join('users_groups', 'users.id = users_groups.user_id');
-        $this->db->join('groups', 'groups.id = users_groups.group_id');
+    public function show_users($limit = 1,$offset = 0)
+    {
+        $this->db->select('u.id,u.ident,u.email,u.name,u.surname,g.id as groups_id,g.name as name_groups');
+        $this->db->from('users u ');
+        $this->db->join('users_groups ug', 'u.id = ug.user_id');
+        $this->db->join('groups g', 'g.id = ug.groups_id');
+        $this->db->limit($limit, $offset);
+        $this->db->order_by("date_add", "asc");
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
             return $query->result_array();
         }
+    }
+
+
+    public function count_users()
+    {
+        $this->db->from('users');
+        $query = $this->db->get();
+        $count = $query->num_rows();
+        return $count;
+    }
+
+
+
+    public function create_users()
+    {
+        $email = $this->input->post('email');
+         $data = array(
+            'id_user' => '',
+            'email' => $email,
+        );
+        $this->db->insert('user', $data);
     }
 
 

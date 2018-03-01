@@ -11,12 +11,10 @@ class Dashboard extends BackendController {
         parent::__construct();
     }
 
-
 	public function index()
 	{
 	 /*   print_r($_SESSION);
 	    exit();*/
-
 
 		//$this->load->view('welcome_message');
         $this->twig->addGlobal("session", $this->session);

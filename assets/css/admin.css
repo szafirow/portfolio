@@ -17,8 +17,16 @@ body {
 
 /* Tabele */
 
+.form-group {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 .panel-table .panel-body{
-  padding:0;
+    padding-top: 15px;
+    padding-right:0px;
+    padding-left: 0px;
+    padding-bottom: 0px;
 }
 
 .panel-table .panel-body .table-bordered{
@@ -179,7 +187,7 @@ body {
 
 .content-wrapper {
     min-height: 100%;
-    background-color: #ecf0f5;
+    background-color: #fff;
     z-index: 800;
 }
 

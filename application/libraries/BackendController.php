@@ -19,6 +19,6 @@ class BackendController extends MY_Controller
         $this->load->model('Model_User');
         $this->twig->addGlobal('personal_data', $this->Model_User->read_personal_data($this->id));
         $this->twig->addGlobal("uri_2", $uri = $this->uri->segment(2));
-        $this->twig->addGlobal("uri_3", $uri = $this->uri->segment(2));
+        $this->twig->addGlobal("uri_3", $uri = $this->uri->segment(3));
     }
 }

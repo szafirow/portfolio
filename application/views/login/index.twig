@@ -10,7 +10,7 @@
                          alt="">
 
                         <div class="col-md-12">
-                            {% if  session.flashdata.item %}
+                            {% if  session.flashdata.item and session.flashdata.item['message'] is not empty %}
                                 <div class="alert alert-{{ session.flashdata.item['class'] }} alert-dismissable"
                                      role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span

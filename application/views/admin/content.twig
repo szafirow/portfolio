@@ -1,9 +1,9 @@
 <section class="content">
     {% if uri_2 == 'dashboard' %}
         {% include 'admin/content/dashboard.twig' %}
-    {% elseif uri_2 == 'user' %}
+    {% elseif uri_2 == 'user' and uri_3 == null %}
         {% include 'admin/content/user.twig' %}
-    {% elseif uri_2 == 'user' and uri_3 == 'edit'%}
-        {% include 'admin/content/user.twig' %}
+    {% elseif uri_2 == 'user' and uri_3 == 'create'%}
+        {% include 'admin/content/user_create.twig' %}
     {% endif %}
 </section>
