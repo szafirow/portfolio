@@ -15,11 +15,12 @@ class User extends BackendController
     function __construct()
     {
         parent::__construct();
+        $this->twig->addGlobal("session", $this->session);
     }
 
     public function index()
     {
-        $this->twig->addGlobal("session", $this->session);
+
         // $this->twig->addGlobal("users", $this->Model_User->show_users());
 
         $config['base_url'] = base_url() . 'admin/user/index/';
@@ -46,17 +47,20 @@ class User extends BackendController
         $config['cur_tag_close'] = '</a></li>';
         $config['num_tag_open'] = '<li>';
         $config['num_tag_close'] = '</li>';
+
+
         $this->pagination->initialize($config);
 
         $limit = $config['per_page'];
         $offset = ($this->uri->segment($config['uri_segment']));
 
-
+/*var_dump($this->Model_User->show_users($limit, $offset));*/
         $this->twig->addGlobal("pagination", $this->pagination->create_links());
         $this->twig->addGlobal("users", $this->Model_User->show_users($limit, $offset));
-
-
         $this->twig->display('admin/index');
+
+
+
     }
 
 
@@ -69,25 +73,23 @@ class User extends BackendController
         //$this->form_validation->set_rules('password', 'Hasło', 'trim|required|callback_check_password');
 
 
-        if ($this->form_validation->run() == FALSE) {
-            //nie stworzone konto
-            $this->session->set_flashdata('item', array('message' => strip_tags(validation_errors()), 'class' => 'danger'));
-            $this->twig->addGlobal('session', $this->session);
-            $this->twig->display('admin/index');
-            $this->session->unset_userdata('item');
+        $action = $this->input->post('action');
+
+        if ($action) {
+            if ($this->form_validation->run() == FALSE) {
+                //blednie wypelniony formularz
+                $this->session->set_flashdata('item', array('message' => strip_tags(validation_errors()), 'class' => 'danger'));
+                redirect('admin/user/create');
+
+            } else {
+                $this->Model_User->create_users();
+                $this->session->set_flashdata('item', array('message' => 'Konto założone!', 'class' => 'success'));
+                redirect('admin/user');
+            }
 
         } else {
-            $this->Model_User->create_users();
-            $this->twig->addGlobal("session", $this->session);
             $this->twig->display('admin/index');
         }
-
-
-
-
-
-
-
 
 
     }

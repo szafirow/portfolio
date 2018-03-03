@@ -50,9 +50,7 @@ class User extends FrontendController
                 $this->session->set_userdata('logged_in', $sess_array);
                 //$this->session->set_userdata($sess_array);
                 $this->session->set_flashdata('item', array('message' => 'Zalogowany!', 'class' => 'success'));
-
-
-                 redirect('admin/dashboard', 'refresh');
+                redirect('admin/dashboard', 'refresh');
 
             }
         }

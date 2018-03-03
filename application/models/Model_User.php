@@ -13,7 +13,6 @@ class Model_User extends MY_Model
         parent::__construct();
     }
 
-
     /**
      * Funckja do logowania użytkownika w systemie
      * @return bool
@@ -101,8 +100,7 @@ class Model_User extends MY_Model
     }
 
 
-
-    public function show_users($limit = 1,$offset = 0)
+    public function show_users($limit = 1, $offset = 0)
     {
         $this->db->select('u.id,u.ident,u.email,u.name,u.surname,g.id as groups_id,g.name as name_groups');
         $this->db->from('users u ');
@@ -127,18 +125,40 @@ class Model_User extends MY_Model
     }
 
 
-
     public function create_users()
     {
+        //Tworzenie uzytkownika
         $email = $this->input->post('email');
-         $data = array(
-            'id_user' => '',
+        $ident = $this->input->post('ident');
+        $password = $this->input->post('password');
+        $name = $this->input->post('name');
+        $surname = $this->input->post('surname');
+        $company = $this->input->post('company');
+        $phone = $this->input->post('phone');
+
+        $data = array(
+            'id' => '',
             'email' => $email,
+            'ident' => $ident,
+            'password' => $this->hash_password($password),
+            'name' => $name,
+            'surname' => $surname,
+            'company' => $company,
+            'phone' => $phone
         );
-        $this->db->insert('user', $data);
+        $this->db->insert('users', $data);
+
+        //Dodanie do grupy
+        //inna metoda
     }
 
-
+    private function hash_password($password)
+    {
+        $options = array(
+            'cost' => 11,
+        );
+        return password_hash($password, PASSWORD_BCRYPT, $options);
+    }
 
 
 }

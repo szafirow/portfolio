@@ -1,7 +1,8 @@
 <section class="content">
+    {#{{ dump(uri_4) }}#}
     {% if uri_2 == 'dashboard' %}
         {% include 'admin/content/dashboard.twig' %}
-    {% elseif uri_2 == 'user' and uri_3 == null %}
+    {% elseif uri_2 == 'user' and (uri_3 is null or (uri_3 == 'index' or uri_4 matches '/^\\d+$/') ) %}
         {% include 'admin/content/user.twig' %}
     {% elseif uri_2 == 'user' and uri_3 == 'create'%}
         {% include 'admin/content/user_create.twig' %}
