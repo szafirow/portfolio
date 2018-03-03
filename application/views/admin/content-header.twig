@@ -10,7 +10,7 @@
                                                 aria-hidden="true"
                                                 style="color: #000;">×</span>
                                     </button>
-                                    <p class="alert-body">{{ session.flashdata.item['message'] }}</p>
+                                    <p class="alert-body">{{ session.flashdata.item['message']|raw }}</p>
                                 </div>
                             {% endif %}
 

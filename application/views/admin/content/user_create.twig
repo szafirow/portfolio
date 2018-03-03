@@ -21,11 +21,15 @@
                               method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="email">Email:</label>
-                                <input type="text" class="form-control" name="email" id="email" autofocus>
+                                <input type="text" class="form-control" name="email" id="email" value="@" autofocus>
                             </div>
                             <div class="form-group">
                                 <label for="ident">IDENT:</label>
-                                <input type="text" class="form-control" name="ident" id="ident">
+                                <input type="text" class="form-control" name="ident" value="FSO$" id="ident">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Hasło:</label>
+                                <input type="password" class="form-control" name="password" id="password">
                             </div>
                             <div class="form-group">
                                 <label for="name">Imię:</label>
@@ -59,7 +63,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="multiple" class="control-label">Select2 multi select</label>
+                                <label for="multiple" class="control-label">Grupa:</label>
                                 <select name="group" id="select2-test">
                                     {% for group in groups %}
                                         <option value="{{ group.id }}">{{ group.name }}</option>

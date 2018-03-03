@@ -105,7 +105,7 @@ class Model_User extends MY_Model
         $this->db->select('u.id,u.ident,u.email,u.name,u.surname,g.id as groups_id,g.name as name_groups');
         $this->db->from('users u ');
         $this->db->join('users_groups ug', 'u.id = ug.user_id');
-        $this->db->join('groups g', 'g.id = ug.groups_id');
+        $this->db->join('groups g', 'g.id = ug.group_id');
         $this->db->limit($limit, $offset);
         $this->db->order_by("date_add", "asc");
         $query = $this->db->get();
@@ -119,7 +119,7 @@ class Model_User extends MY_Model
     public function show_groups(){
         $this->db->select('g.id,g.name');
         $this->db->from('groups g ');
-        $this->db->order_by("g.name", "asc");
+        $this->db->order_by("g.name", "desc");
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
@@ -165,6 +165,17 @@ class Model_User extends MY_Model
         $this->db->insert('users', $data);
 
         //Dodanie do grupy
+
+        $id = $this->db->insert_id();
+        $group = $this->input->post('group');
+
+        $data = array(
+            'id' => '',
+            'user_id' =>  $id,
+            'group_id' => $group,
+
+        );
+        $this->db->insert('users_groups', $data);
         //inna metoda
     }
 

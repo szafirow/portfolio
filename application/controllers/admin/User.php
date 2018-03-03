@@ -66,10 +66,12 @@ class User extends BackendController
 
     public function create()
     {
-        var_dump($_SESSION);
+        //wzomcnic walidacje
+       // var_dump($_SESSION);
         //$this->session->unset_userdata('session');
         //nowe_konto
         $this->form_validation->set_rules('email', 'Email', 'trim|required');
+        $this->form_validation->set_rules('ident', 'IDENT', 'trim|required');
         //$this->form_validation->set_rules('password', 'Hasło', 'trim|required|callback_check_password');
 
 
@@ -78,7 +80,7 @@ class User extends BackendController
         if ($action) {
             if ($this->form_validation->run() == FALSE) {
                 //blednie wypelniony formularz
-                $this->session->set_flashdata('item', array('message' => strip_tags(validation_errors()), 'class' => 'danger'));
+                $this->session->set_flashdata('item', array('message' => validation_errors(), 'class' => 'danger'));
                 redirect('admin/user/create');
 
             } else {
