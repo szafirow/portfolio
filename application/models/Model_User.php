@@ -116,6 +116,18 @@ class Model_User extends MY_Model
     }
 
 
+    public function show_groups(){
+        $this->db->select('g.id,g.name');
+        $this->db->from('groups g ');
+        $this->db->order_by("g.name", "asc");
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+    }
+
+
     public function count_users()
     {
         $this->db->from('users');
@@ -135,6 +147,9 @@ class Model_User extends MY_Model
         $surname = $this->input->post('surname');
         $company = $this->input->post('company');
         $phone = $this->input->post('phone');
+        $active = $this->input->post('active');
+
+        var_dump($active);
 
         $data = array(
             'id' => '',
@@ -144,7 +159,8 @@ class Model_User extends MY_Model
             'name' => $name,
             'surname' => $surname,
             'company' => $company,
-            'phone' => $phone
+            'phone' => $phone,
+            'active' => $active
         );
         $this->db->insert('users', $data);
 

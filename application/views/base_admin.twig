@@ -10,6 +10,8 @@
     {% block stylesheets %}
         <!-- CSS -->
         <link href="{{ base_url('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ base_url('assets/css/select2.css') }}">
+       {# <link rel="stylesheet" href="{{ base_url('assets/css/select2-bootstrap.min.css') }}">#}
         <link href="{{ base_url('assets/css/admin.css') }}" rel="stylesheet">
         <link href="{{ base_url('assets/css/admin-style.css') }}" rel="stylesheet">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -28,46 +30,54 @@
 
 
 {% block javascripts %}
-<!-- JavaScript -->
-<script src="{{ base_url('assets/js/jquery.min.js') }}"></script>
-<script src="{{ base_url('assets/js/bootstrap.min.js') }}"></script>
-<script src="{{ base_url('assets/js/admin.js') }}"></script>
-<script src="{{ base_url('assets/js/fileinput.min.js') }}"></script>
-<script>
-    $(document).ready(function () {
+    <!-- JavaScript -->
+    <script src="{{ base_url('assets/js/jquery.min.js') }}"></script>
+    <script src="{{ base_url('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ base_url('assets/js/admin.js') }}"></script>
+    <script src="{{ base_url('assets/js/fileinput.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
 
-        $("#upload-image").fileinput({
-            autoReplace: true,
-            maxImageWidth: 280,
-            maxImageHeight: 280,
-            maxFileCount: 1,
-            allowedFileExtensions: ["jpeg", "jpg", "png", "gif"],
-            showUpload: false,
-            browseOnZoneClick: true,
-            dropZoneTitle: 'Przeciągnij i upuść zdjęcie ',
-            dropZoneClickTitle: 'lub kliknij i wybierz plik.',
-            layoutTemplates:
-                {
-                    actions: '<div class="file-actions">\n' +
-                    '    <div class="file-footer-buttons">\n' +
-                    '       {delete} {zoom} ' +
-                    '    </div>\n' +
-                    '    {drag}\n' +
-                    '    <div class="file-upload-indicator" title="{indicatorTitle}">{indicator}</div>\n' +
-                    '    <div class="clearfix"></div>\n' +
-                    '</div>',
-                    btnDefault: '<button type="{type}" tabindex="500" title="{title}" class="{css}"{status}>{icon}{label}</button>',
-                    btnLink: '<a href="{href}" tabindex="500" title="{title}" class="{css}"{status}>{icon}{label}</a>',
-                    btnBrowse: '<div tabindex="500" class="{css}"{status}>{icon}{label}</div>',
-                }
+            $("#upload-image").fileinput({
+                autoReplace: true,
+                maxImageWidth: 280,
+                maxImageHeight: 280,
+                maxFileCount: 1,
+                allowedFileExtensions: ["jpeg", "jpg", "png", "gif"],
+                showUpload: false,
+                browseOnZoneClick: true,
+                dropZoneTitle: 'Przeciągnij i upuść zdjęcie ',
+                dropZoneClickTitle: 'lub kliknij i wybierz plik.',
+                layoutTemplates:
+                    {
+                        actions: '<div class="file-actions">\n' +
+                        '    <div class="file-footer-buttons">\n' +
+                        '       {delete} {zoom} ' +
+                        '    </div>\n' +
+                        '    {drag}\n' +
+                        '    <div class="file-upload-indicator" title="{indicatorTitle}">{indicator}</div>\n' +
+                        '    <div class="clearfix"></div>\n' +
+                        '</div>',
+                        btnDefault: '<button type="{type}" tabindex="500" title="{title}" class="{css}"{status}>{icon}{label}</button>',
+                        btnLink: '<a href="{href}" tabindex="500" title="{title}" class="{css}"{status}>{icon}{label}</a>',
+                        btnBrowse: '<div tabindex="500" class="{css}"{status}>{icon}{label}</div>',
+                    }
+            });
+
         });
 
+    </script>
+   <script src="{{ base_url('assets/js/select2.full.js') }}"></script>
+ <script>
+    $(document).ready(function() {
+         $("#select2-test").select2({
+             width: '100%',
+         });
     });
+
 
 </script>
 {% endblock %}
-
-
 </body>
 </html>
 

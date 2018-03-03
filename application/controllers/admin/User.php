@@ -88,6 +88,7 @@ class User extends BackendController
             }
 
         } else {
+            $this->twig->addGlobal("groups", $this->Model_User->show_groups());
             $this->twig->display('admin/index');
         }
 
