@@ -102,7 +102,7 @@ class Model_User extends MY_Model
 
     public function show_users($limit = 1, $offset = 0)
     {
-        $this->db->select('u.id,u.ident,u.email,u.name,u.surname,g.id as groups_id,g.name as name_groups');
+        $this->db->select('u.id,u.ident,u.email,u.name,u.surname,g.id as groups_id,g.name as name_groups,u.active');
         $this->db->from('users u ');
         $this->db->join('users_groups ug', 'u.id = ug.user_id');
         $this->db->join('groups g', 'g.id = ug.group_id');
@@ -116,7 +116,8 @@ class Model_User extends MY_Model
     }
 
 
-    public function show_groups(){
+    public function show_groups()
+    {
         $this->db->select('g.id,g.name');
         $this->db->from('groups g ');
         $this->db->order_by("g.name", "desc");
@@ -171,12 +172,29 @@ class Model_User extends MY_Model
 
         $data = array(
             'id' => '',
-            'user_id' =>  $id,
+            'user_id' => $id,
             'group_id' => $group,
 
         );
         $this->db->insert('users_groups', $data);
         //inna metoda
+    }
+
+    public function deactive_users($id)
+    {
+        $data = array('active' => 0);
+        $this->db->where('id', $id);
+        $this->db->update('users', $data);
+        $this->db->limit(1);
+        //var_dump($this->db->last_query());exit();
+    }
+
+    public function active_users($id)
+    {
+        $data = array('active' => 1);
+        $this->db->where('id', $id);
+        $this->db->update('users', $data);
+        $this->db->limit(1);
     }
 
     private function hash_password($password)

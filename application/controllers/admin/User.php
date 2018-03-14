@@ -126,7 +126,21 @@ class User extends BackendController
     }
 
 
+    public function deactive()
+    {
+        $id = $uri = $this->uri->segment(4);
+        $this->Model_User->deactive_users($id);
+        $this->session->set_flashdata('item', array('message' => 'Konto dezaktywowane!', 'class' => 'danger'));
+        redirect('admin/user');
+    }
 
+    public function active()
+    {
+        $id = $uri = $this->uri->segment(4);
+        $this->Model_User->active_users($id);
+        $this->session->set_flashdata('item', array('message' => 'Konto aktywne!', 'class' => 'success'));
+        redirect('admin/user');
+    }
 
 
 }

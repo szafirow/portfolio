@@ -29,7 +29,11 @@
                     {% for user in users %}
                     <tr>
                         <td align="left">
-                            <a class="btn btn-xs btn-success"><em class="fa fa-check"></em></a>
+                            {% if user.active == '1' %}
+                                <a href="{{ base_url('admin/user/deactive/') }}{{ user.id }} " class="btn btn-xs btn-success"><em class="fa fa-check"></em></a>
+                            {% elseif user.active == '0' %}
+                                <a href="{{ base_url('admin/user/active/') }}{{ user.id }} " class="btn btn-xs btn-danger"><em class="fa fa-close"></em></a>
+                            {% endif %}
                             <a class="btn btn-xs btn-default"><em class="fa fa-pencil"></em></a>
                             <a class="btn btn-xs btn-danger"><em class="fa fa-trash"></em></a>
                         </td>
