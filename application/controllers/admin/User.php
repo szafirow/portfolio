@@ -54,11 +54,10 @@ class User extends BackendController
         $limit = $config['per_page'];
         $offset = ($this->uri->segment($config['uri_segment']));
 
-/*var_dump($this->Model_User->show_users($limit, $offset));*/
+        /*var_dump($this->Model_User->show_users($limit, $offset));*/
         $this->twig->addGlobal("pagination", $this->pagination->create_links());
         $this->twig->addGlobal("users", $this->Model_User->show_users($limit, $offset));
         $this->twig->display('admin/index');
-
 
 
     }
@@ -66,13 +65,14 @@ class User extends BackendController
 
     public function create()
     {
-        //wzomcnic walidacje
-       // var_dump($_SESSION);
-        //$this->session->unset_userdata('session');
         //nowe_konto
-        $this->form_validation->set_rules('email', 'Email', 'trim|required');
-        $this->form_validation->set_rules('ident', 'IDENT', 'trim|required');
-        //$this->form_validation->set_rules('password', 'Hasło', 'trim|required|callback_check_password');
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|min_length[5]');
+        $this->form_validation->set_rules('ident', 'IDENT', 'trim|required|min_length[6]|max_length[6]');
+        $this->form_validation->set_rules('password', 'Hasło', 'trim|required|callback_check_password');
+        $this->form_validation->set_rules('name', 'Imię', 'trim|required');
+        $this->form_validation->set_rules('surname', 'Nazwisko', 'trim|required');
+        $this->form_validation->set_rules('company', 'Firma', 'trim|required');
+        $this->form_validation->set_rules('phone', 'Telefon', 'trim|required|numeric');
 
 
         $action = $this->input->post('action');
@@ -97,12 +97,36 @@ class User extends BackendController
 
     }
 
+    public function check_password()
+    {
+        $password = $this->input->post('password');
+
+        if (!preg_match("#[0-9]+#", $password)) {
+            $this->form_validation->set_message('check_password', 'Hasło powinno zawierać co najmniej jedną cyfrę.');
+            return FALSE;
+        } elseif (!preg_match("#[a-z]+#", $password)) {
+            $this->form_validation->set_message('check_password', 'Hasło musi zawierać conajmniej jedną literę.');
+            return FALSE;
+        } elseif (!preg_match("#[A-Z]+#", $password)) {
+            $this->form_validation->set_message('check_password', 'Hasło powinno zawierać co najmniej jedną dużą literę.');
+            return FALSE;
+        } elseif (!preg_match("#\W+#", $password)) {
+            $this->form_validation->set_message('check_password', 'Hasło powinno zawierać co najmniej jeden symbol.');
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+
 
     public function edit()
     {
         $this->twig->addGlobal("session", $this->session);
         $this->twig->display('admin/index');
     }
+
+
+
 
 
 }
