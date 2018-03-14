@@ -128,7 +128,6 @@ class Model_User extends MY_Model
         }
     }
 
-
     public function count_users()
     {
         $this->db->from('users');
@@ -136,7 +135,6 @@ class Model_User extends MY_Model
         $count = $query->num_rows();
         return $count;
     }
-
 
     public function create_users()
     {
@@ -177,12 +175,12 @@ class Model_User extends MY_Model
 
         );
         $this->db->insert('users_groups', $data);
-        //inna metoda
+
     }
 
     public function deactive_users($id)
     {
-        $data = array('active' => 0);
+        $data = array('active' => 0, 'last_update' => date("Y-m-d H:i:s"));
         $this->db->where('id', $id);
         $this->db->update('users', $data);
         $this->db->limit(1);
@@ -191,10 +189,19 @@ class Model_User extends MY_Model
 
     public function active_users($id)
     {
-        $data = array('active' => 1);
+        $data = array('active' => 1, 'last_update' => date("Y-m-d H:i:s"));
         $this->db->where('id', $id);
         $this->db->update('users', $data);
         $this->db->limit(1);
+    }
+
+    public function delete_users($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('users');
+
+        $this->db->where('user_id', $id);
+        $this->db->delete('users_groups');
     }
 
     private function hash_password($password)

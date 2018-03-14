@@ -142,5 +142,13 @@ class User extends BackendController
         redirect('admin/user');
     }
 
+    public function delete()
+    {
+        $id = $uri = $this->uri->segment(4);
+        $this->Model_User->delete_users($id);
+        $this->session->set_flashdata('item', array('message' => 'Konto usunięte!', 'class' => 'danger'));
+        redirect('admin/user');
+    }
+
 
 }
