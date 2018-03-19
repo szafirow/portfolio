@@ -34,7 +34,7 @@
                             {% elseif user.active == '0' %}
                                 <a href="{{ base_url('admin/user/active/') }}{{ user.id }}" class="btn btn-xs btn-danger"><em class="fa fa-close"></em></a>
                             {% endif %}
-                            <a class="btn btn-xs btn-default"><em class="fa fa-pencil"></em></a>
+                            <a href="{{ base_url('admin/user/edit/') }}{{ user.id }}" class="btn btn-xs btn-default"><em class="fa fa-pencil"></em></a>
                             <a href="{{ base_url('admin/user/delete/') }}{{ user.id }}" class="btn btn-xs btn-danger"><em class="fa fa-trash"></em></a>
                         </td>
 

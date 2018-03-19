@@ -121,7 +121,10 @@ class User extends BackendController
 
     public function edit()
     {
-        $this->twig->addGlobal("session", $this->session);
+        $id = $uri = $this->uri->segment(4);
+       // $this->Model_User->edit_users($id);
+        $this->twig->addGlobal("groups", $this->Model_User->show_groups_edit($id));
+        $this->twig->addGlobal("users", $this->Model_User->show_one_users($id));
         $this->twig->display('admin/index');
     }
 

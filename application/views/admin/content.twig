@@ -2,9 +2,11 @@
     {#{{ dump(uri_4) }}#}
     {% if uri_2 == 'dashboard' %}
         {% include 'admin/content/dashboard.twig' %}
-    {% elseif uri_2 == 'user' and (uri_3 is null or (uri_3 == 'index' or uri_4 matches '/^\\d+$/') ) %}
+    {% elseif uri_2 == 'user' and (uri_3 is null or (uri_3 == 'index' or uri_3 == 'index' and uri_4 matches '/^\\d+$/') ) %}
         {% include 'admin/content/user.twig' %}
     {% elseif uri_2 == 'user' and uri_3 == 'create'%}
         {% include 'admin/content/user_create.twig' %}
+    {% elseif uri_2 == 'user' and uri_3 == 'edit' and uri_4 matches '/^\\d+$/' %}
+        {% include 'admin/content/user_edit.twig' %}
     {% endif %}
 </section>

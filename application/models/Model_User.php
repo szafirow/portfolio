@@ -100,13 +100,28 @@ class Model_User extends MY_Model
     }
 
 
-    public function show_users($limit = 1, $offset = 0)
+    public function show_users($limit = false, $offset = false)
     {
         $this->db->select('u.id,u.ident,u.email,u.name,u.surname,g.id as groups_id,g.name as name_groups,u.active');
         $this->db->from('users u ');
         $this->db->join('users_groups ug', 'u.id = ug.user_id');
         $this->db->join('groups g', 'g.id = ug.group_id');
         $this->db->limit($limit, $offset);
+        $this->db->order_by("date_add", "asc");
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+    }
+
+    public function show_one_users($id)
+    {
+        $this->db->select('u.id,u.ident,u.email,u.name,u.surname,g.id as groups_id,g.name as name_groups,u.active,u.company,u.phone');
+        $this->db->from('users u ');
+        $this->db->join('users_groups ug', 'u.id = ug.user_id');
+        $this->db->join('groups g', 'g.id = ug.group_id');
+        $this->db->where('u.id', $id);
         $this->db->order_by("date_add", "asc");
         $query = $this->db->get();
 
@@ -127,6 +142,37 @@ class Model_User extends MY_Model
             return $query->result_array();
         }
     }
+
+
+     public function show_groups_edit($id)
+    {
+        $this->db->select('g.id,g.name');
+        $this->db->from('users_groups ug ');
+        $this->db->join('groups g', 'g.id = ug.group_id');
+        $this->db->where('ug.user_id', $id);
+        $this->db->limit(1);
+
+        print($this->db->last_query());
+        $query1 = $this->db->get();
+        $result1 = $query1->result_array();
+        $name = $result1['0']['name'];
+
+
+        $this->db->select('g.id,g.name');
+        $this->db->from('groups g ');
+        $this->db->where_not_in('g.name',  $name);
+        $this->db->order_by("g.name", "desc");
+        print($this->db->last_query());
+
+        exit();
+
+        $query2 = $this->db->get();
+        if ($query2->num_rows() > 0) {
+            return $query2->result_array();
+        }
+
+    }
+
 
     public function count_users()
     {
@@ -203,6 +249,15 @@ class Model_User extends MY_Model
         $this->db->where('user_id', $id);
         $this->db->delete('users_groups');
     }
+
+    public function edit_users($id)
+    {
+
+echo  'test'.$id;
+    }
+
+
+
 
     private function hash_password($password)
     {
