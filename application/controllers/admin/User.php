@@ -119,13 +119,25 @@ class User extends BackendController
     }
 
 
+
+
     public function edit()
     {
-        $id = $uri = $this->uri->segment(4);
-       // $this->Model_User->edit_users($id);
-        $this->twig->addGlobal("groups", $this->Model_User->show_groups_edit($id));
-        $this->twig->addGlobal("users", $this->Model_User->show_one_users($id));
-        $this->twig->display('admin/index');
+        $action = $this->input->post('action');
+
+        if($action){
+            $id = $uri = $this->uri->segment(4);
+            $this->Model_User->edit_users($id);
+            redirect('admin/user');
+        }
+        else {
+            $id = $uri = $this->uri->segment(4);
+            // $this->Model_User->edit_users($id);
+            $this->twig->addGlobal("groups", $this->Model_User->show_groups_edit($id));
+            $this->twig->addGlobal("users", $this->Model_User->show_one_users($id));
+            $this->twig->display('admin/index');
+        }
+
     }
 
 
@@ -151,6 +163,11 @@ class User extends BackendController
         $this->Model_User->delete_users($id);
         $this->session->set_flashdata('item', array('message' => 'Konto usunięte!', 'class' => 'danger'));
         redirect('admin/user');
+    }
+
+    public function recover()
+    {
+
     }
 
 

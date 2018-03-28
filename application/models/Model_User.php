@@ -146,30 +146,27 @@ class Model_User extends MY_Model
 
      public function show_groups_edit($id)
     {
+       //to co jest obecnie
         $this->db->select('g.id,g.name');
         $this->db->from('users_groups ug ');
         $this->db->join('groups g', 'g.id = ug.group_id');
         $this->db->where('ug.user_id', $id);
         $this->db->limit(1);
-
-        print($this->db->last_query());
         $query1 = $this->db->get();
         $result1 = $query1->result_array();
-        $name = $result1['0']['name'];
+        //print($this->db->last_query());
 
-
-        $this->db->select('g.id,g.name');
-        $this->db->from('groups g ');
-        $this->db->where_not_in('g.name',  $name);
-        $this->db->order_by("g.name", "desc");
-        print($this->db->last_query());
-
-        exit();
+        //to co jest jeszcze nie wybrane
+        $this->db->select('gf.id,gf.name');
+        $this->db->from('groups gf ');
+        $this->db->where("gf.id NOT IN (SELECT `g`.`id` FROM `users_groups` `ug` JOIN `groups` `g` ON `g`.`id` = `ug`.`group_id` WHERE `ug`.`user_id` = '".$id."') ");
+      //  $this->db->order_by("g.name", "desc");
 
         $query2 = $this->db->get();
-        if ($query2->num_rows() > 0) {
-            return $query2->result_array();
-        }
+        $result2 = $query2->result_array();
+        return $array = array_merge($result1, $result2);
+        //print($this->db->last_query());exit();
+
 
     }
 
@@ -252,8 +249,39 @@ class Model_User extends MY_Model
 
     public function edit_users($id)
     {
+        //Edycja użytkownika
+        $email = $this->input->post('email');
+        $ident = $this->input->post('ident');
+        $password = $this->input->post('password');
+        $name = $this->input->post('name');
+        $surname = $this->input->post('surname');
+        $company = $this->input->post('company');
+        $phone = $this->input->post('phone');
+        $active = $this->input->post('active');
+        $group = $this->input->post('group');
 
-echo  'test'.$id;
+
+        $data = array(
+            'email' => $email,
+            'ident' => $ident,
+            'password' => $password,
+            'name' => $name,
+            'surname' => $surname,
+            'company' => $company,
+            'phone' => $phone,
+            'active' =>$active,
+            'last_update' => date("Y-m-d H:i:s"));
+        $this->db->where('id', $id);
+        $this->db->update('users', $data);
+        $this->db->limit(1);
+
+        $data = array(
+            'user_id' => $id,
+            'group_id' => $group,
+        );
+        $this->db->where('user_id', $id);
+        $this->db->update('users_groups', $data);
+
     }
 
 

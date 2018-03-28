@@ -8,7 +8,8 @@
                         <h3 class="panel-title">Lista użytkowników</h3>
                     </div>
                     <div class="col col-xs-6 text-right">
-                        <a href="{{ base_url('admin/user/create') }}" class="btn btn-sm btn-primary btn-create">Nowe konto</a>
+                        <a href="{{ base_url('admin/user/create') }}" class="btn btn-sm btn-primary btn-create">Nowe
+                            konto</a>
                     </div>
                 </div>
             </div>
@@ -20,40 +21,43 @@
                         <th class="hidden-xs">ID</th>
                         <th>IDENT</th>
                         <th>Email</th>
-                        <th>Imię</th>
-                        <th>Nazwisko</th>
+                        <th>Imię i Nazwisko</th>
                         <th>Pozycja</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for user in users %}
                     <tr>
-                        <td align="left">
+                        <td align="left" style="width: 20%; !important;">
                             {% if user.active == '1' %}
-                                <a href="{{ base_url('admin/user/deactive/') }}{{ user.id }}" class="btn btn-xs btn-success"><em class="fa fa-check"></em></a>
+                                <a href="{{ base_url('admin/user/deactive/') }}{{ user.id }}"
+                                   class="btn btn-xs btn-success"><em class="fa fa-check"></em></a>
                             {% elseif user.active == '0' %}
-                                <a href="{{ base_url('admin/user/active/') }}{{ user.id }}" class="btn btn-xs btn-danger"><em class="fa fa-close"></em></a>
+                                <a href="{{ base_url('admin/user/active/') }}{{ user.id }}"
+                                   class="btn btn-xs btn-danger"><em class="fa fa-close"></em></a>
                             {% endif %}
-                            <a href="{{ base_url('admin/user/edit/') }}{{ user.id }}" class="btn btn-xs btn-default"><em class="fa fa-pencil"></em></a>
-                            <a href="{{ base_url('admin/user/delete/') }}{{ user.id }}" class="btn btn-xs btn-danger"><em class="fa fa-trash"></em></a>
+                            <a href="{{ base_url('admin/user/recover/') }}{{ user.id }}" class="btn btn-xs btn-warning"><em
+                                        class="fa fa-key"></em></a>
+                            <a href="{{ base_url('admin/user/edit/') }}{{ user.id }}" class="btn btn-xs btn-default"><em
+                                        class="fa fa-pencil"></em></a>
+                            <a href="{{ base_url('admin/user/delete/') }}{{ user.id }}"
+                               class="btn btn-xs btn-danger"><em class="fa fa-trash"></em></a>
                         </td>
 
-                      {#  {{ dump(users) }}#}
+                        {#  {{ dump(users) }}#}
 
-                            <td class="hidden-xs">{{ user.id }}</td>
-                            <td>{{ user.ident }}</td>
-                            <td>{{ user.email }}</td>
-                            <td>{{ user.name }}</td>
-                            <td>{{ user.surname }}</td>
+                        <td class="hidden-xs">{{ user.id }}</td>
+                        <td style="width: 10%; !important;">{{ user.ident }}</td>
+                        <td style="width: 10%; !important;">{{ user.email }}</td>
+                        <td>{{ user.name }} {{  user.surname }}</td>
 
-                            {% if user.groups_id == '1' %}
-                                <td class="danger">{{ user.name_groups }}</td>
-                            {% elseif user.groups_id == '2' %}
-                                <td class="warning">{{ user.name_groups }}</td>
-                            {% endif %}
+                        {% if user.groups_id == '1' %}
+                            <td class="danger">{{ user.name_groups }}</td>
+                        {% elseif user.groups_id == '2' %}
+                            <td class="warning">{{ user.name_groups }}</td>
+                        {% endif %}
 
                         {% endfor %}
-
 
 
                     </tr>
