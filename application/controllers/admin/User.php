@@ -73,8 +73,6 @@ class User extends BackendController
         $this->form_validation->set_rules('surname', 'Nazwisko', 'trim|required');
         $this->form_validation->set_rules('company', 'Firma', 'trim|required');
         $this->form_validation->set_rules('phone', 'Telefon', 'trim|required|numeric');
-
-
         $action = $this->input->post('action');
 
         if ($action) {
@@ -91,6 +89,7 @@ class User extends BackendController
 
         } else {
             $this->twig->addGlobal("groups", $this->Model_User->show_groups());
+            $this->twig->addGlobal("companies", $this->Model_User->show_companies());
             $this->twig->display('admin/index');
         }
 
@@ -123,17 +122,33 @@ class User extends BackendController
 
     public function edit()
     {
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|min_length[5]');
+        $this->form_validation->set_rules('ident', 'IDENT', 'trim|required|min_length[6]|max_length[6]');
+        $this->form_validation->set_rules('name', 'Imię', 'trim|required');
+        $this->form_validation->set_rules('surname', 'Nazwisko', 'trim|required');
+        $this->form_validation->set_rules('company', 'Firma', 'trim|required');
+        $this->form_validation->set_rules('phone', 'Telefon', 'trim|required|numeric');
         $action = $this->input->post('action');
 
         if($action){
-            $id = $uri = $this->uri->segment(4);
-            $this->Model_User->edit_users($id);
-            redirect('admin/user');
+              if ($this->form_validation->run() == FALSE) {
+                //blednie wypelniony formularz
+                $this->session->set_flashdata('item', array('message' => validation_errors(), 'class' => 'danger'));
+                redirect('admin/user');
+
+            }
+            else {
+                $id = $uri = $this->uri->segment(4);
+                $this->Model_User->edit_users($id);
+                $this->session->set_flashdata('item', array('message' => 'Edycja użytkownika wykonana poprawnie!', 'class' => 'success'));
+                redirect('admin/user');
+            }
         }
         else {
             $id = $uri = $this->uri->segment(4);
             // $this->Model_User->edit_users($id);
             $this->twig->addGlobal("groups", $this->Model_User->show_groups_edit($id));
+            $this->twig->addGlobal("companies", $this->Model_User->show_companies_edit($id));
             $this->twig->addGlobal("users", $this->Model_User->show_one_users($id));
             $this->twig->display('admin/index');
         }
@@ -168,7 +183,36 @@ class User extends BackendController
     public function recover()
     {
 
+        $this->form_validation->set_rules('password', 'Hasło', 'trim|required|callback_check_password');
+        $this->form_validation->set_rules('password_repeat', 'Hasło', 'trim|required');
+        $action = $this->input->post('action');
+
+        if($action){
+              if ($this->form_validation->run() == FALSE) {
+                //blednie wypelniony formularz
+                $this->session->set_flashdata('item', array('message' => validation_errors(), 'class' => 'danger'));
+                redirect('admin/user');
+
+            }
+            else{
+                 $id = $uri = $this->uri->segment(4);
+                 $this->Model_User->recover_password_users($id);
+                 $this->session->set_flashdata('item', array('message' => 'Hasło zresetowane!', 'class' => 'success'));
+                 redirect('admin/user');
+             }
+
+        }
+        else {
+            $id = $uri = $this->uri->segment(4);
+            $this->twig->addGlobal("users", $this->Model_User->show_one_users($id));
+            $this->twig->display('admin/index');
+        }
     }
 
 
 }
+/*
+ *Poprawic klientow - zrobic ich wyswietlanie, nie musi byc edycji itp bo to jest od strony uzytkownika
+ * icona ksiazki adresowej jest fajna <i class="far fa-address-book"></i>
+ *
+ */

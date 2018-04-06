@@ -70,11 +70,15 @@
    <script src="{{ base_url('assets/js/select2.full.js') }}"></script>
  <script>
     $(document).ready(function() {
-         $("#select2-test").select2({
+         $("#select1-adm").select2({
              width: '100%',
          });
     });
-
+    $(document).ready(function() {
+        $("#select2-adm").select2({
+            width: '100%',
+        });
+    });
 
 </script>
 {% endblock %}

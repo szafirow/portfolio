@@ -99,6 +99,21 @@ class Model_User extends MY_Model
         }
     }
 
+    public function show_clients($limit = false, $offset = false)
+    {
+        $this->db->select('u.id,u.ident,u.email,u.name,u.surname,g.id as groups_id,g.name as name_groups,u.active');
+        $this->db->from('users u ');
+        $this->db->join('users_groups ug', 'u.id = ug.user_id');
+        $this->db->join('groups g', 'g.id = ug.group_id');
+        $this->db->where('ug.group_id', 3);
+        $this->db->limit($limit, $offset);
+        $this->db->order_by("date_add", "asc");
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+    }
 
     public function show_users($limit = false, $offset = false)
     {
@@ -117,10 +132,8 @@ class Model_User extends MY_Model
 
     public function show_one_users($id)
     {
-        $this->db->select('u.id,u.ident,u.email,u.name,u.surname,g.id as groups_id,g.name as name_groups,u.active,u.company,u.phone');
+        $this->db->select('u.id,u.ident,u.email,u.name,u.surname,u.active,u.phone');
         $this->db->from('users u ');
-        $this->db->join('users_groups ug', 'u.id = ug.user_id');
-        $this->db->join('groups g', 'g.id = ug.group_id');
         $this->db->where('u.id', $id);
         $this->db->order_by("date_add", "asc");
         $query = $this->db->get();
@@ -128,6 +141,44 @@ class Model_User extends MY_Model
         if ($query->num_rows() > 0) {
             return $query->result_array();
         }
+    }
+
+    public function show_companies()
+    {
+        $this->db->select('c.id,c.name');
+        $this->db->from('company c ');
+        $this->db->order_by("c.name", "desc");
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+    }
+
+    public function show_companies_edit($id)
+    {
+        //to co jest obecnie
+        $this->db->select('c.id,c.name');
+        $this->db->from('users u');
+        $this->db->join('company c', 'c.id = u.company_id');
+        $this->db->where('u.id', $id);
+        $this->db->limit(1);
+        $query3 = $this->db->get();
+        $result3 = $query3->result_array();
+        //print($this->db->last_query());
+
+        //to co jest jeszcze nie wybrane
+        $this->db->select('c.id,c.name');
+        $this->db->from('company c');
+        $this->db->where("c.id NOT IN (SELECT c.id FROM users u JOIN company c ON c.id = u.company_id WHERE u.id = '".$id."') ");
+        //print($this->db->last_query());
+
+        //  $this->db->order_by("g.name", "desc");
+
+        $query4 = $this->db->get();
+        $result4 = $query4->result_array();
+        return $array = array_merge($result3, $result4);
+        //print($this->db->last_query());exit();
     }
 
 
@@ -144,7 +195,7 @@ class Model_User extends MY_Model
     }
 
 
-     public function show_groups_edit($id)
+    public function show_groups_edit($id)
     {
        //to co jest obecnie
         $this->db->select('g.id,g.name');
@@ -166,8 +217,6 @@ class Model_User extends MY_Model
         $result2 = $query2->result_array();
         return $array = array_merge($result1, $result2);
         //print($this->db->last_query());exit();
-
-
     }
 
 
@@ -191,7 +240,7 @@ class Model_User extends MY_Model
         $phone = $this->input->post('phone');
         $active = $this->input->post('active');
 
-        var_dump($active);
+        //var_dump($active);
 
         $data = array(
             'id' => '',
@@ -200,7 +249,7 @@ class Model_User extends MY_Model
             'password' => $this->hash_password($password),
             'name' => $name,
             'surname' => $surname,
-            'company' => $company,
+            'company_id' => $company,
             'phone' => $phone,
             'active' => $active
         );
@@ -252,7 +301,6 @@ class Model_User extends MY_Model
         //Edycja użytkownika
         $email = $this->input->post('email');
         $ident = $this->input->post('ident');
-        $password = $this->input->post('password');
         $name = $this->input->post('name');
         $surname = $this->input->post('surname');
         $company = $this->input->post('company');
@@ -264,10 +312,9 @@ class Model_User extends MY_Model
         $data = array(
             'email' => $email,
             'ident' => $ident,
-            'password' => $password,
             'name' => $name,
             'surname' => $surname,
-            'company' => $company,
+            'company_id' => $company,
             'phone' => $phone,
             'active' =>$active,
             'last_update' => date("Y-m-d H:i:s"));
@@ -284,7 +331,22 @@ class Model_User extends MY_Model
 
     }
 
+    public function recover_password_users($id){
+         $password = $this->input->post('password');
+         $password_repeat = $this->input->post('password_repeat');
 
+         if($password == $password_repeat)
+         {
+             $data = array(
+                 'password' => $this->hash_password($password)
+            );
+            $this->db->where('id', $id);
+            $this->db->update('users', $data);
+         }
+         else{
+             return FALSE;
+         }
+    }
 
 
     private function hash_password($password)

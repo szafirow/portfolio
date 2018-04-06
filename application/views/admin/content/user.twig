@@ -52,9 +52,11 @@
                         <td>{{ user.name }} {{  user.surname }}</td>
 
                         {% if user.groups_id == '1' %}
-                            <td class="danger">{{ user.name_groups }}</td>
+                            <td class="danger"><span class="label label-danger">{{ user.name_groups }}</span></td>
                         {% elseif user.groups_id == '2' %}
-                            <td class="warning">{{ user.name_groups }}</td>
+                            <td class="warning"><span class="label label-warning">{{ user.name_groups }}</span></td>
+                        {% elseif user.groups_id == '3' %}
+                            <td class="info"><span class="label label-info">{{ user.name_groups }}</span></td>
                         {% endif %}
 
                         {% endfor %}

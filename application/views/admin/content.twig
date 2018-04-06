@@ -8,5 +8,10 @@
         {% include 'admin/content/user_create.twig' %}
     {% elseif uri_2 == 'user' and uri_3 == 'edit' and uri_4 matches '/^\\d+$/' %}
         {% include 'admin/content/user_edit.twig' %}
+    {% elseif uri_2 == 'user' and uri_3 == 'recover' and uri_4 matches '/^\\d+$/' %}
+        {% include 'admin/content/user_recover_password.twig' %}
+
+    {% elseif uri_2 == 'client' and (uri_3 is null or (uri_3 == 'index' or uri_3 == 'index' and uri_4 matches '/^\\d+$/') ) %}
+        {% include 'admin/content/client.twig' %}
     {% endif %}
 </section>
