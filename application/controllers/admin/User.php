@@ -212,8 +212,3 @@ class User extends BackendController
 
 
 }
-/*
- *Poprawic klientow - zrobic ich wyswietlanie, nie musi byc edycji itp bo to jest od strony uzytkownika
- * icona ksiazki adresowej jest fajna <i class="far fa-address-book"></i>
- *
- */

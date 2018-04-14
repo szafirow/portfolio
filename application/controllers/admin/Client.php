@@ -65,12 +65,11 @@ class Client extends BackendController
 
     public function show(){
         $id = $uri = $this->uri->segment(4);
-        $this->Model_Client->deactive_users($id);
-        $this->session->set_flashdata('item', array('message' => 'Konto dezaktywowane!', 'class' => 'danger'));
-        redirect('admin/client');
+        $this->twig->addGlobal("clients",  $this->Model_Client->show_client_one($id));
+        $this->twig->display('admin/index');
     }
 
-
+/* pobrac dane do widoku show clients */
 
 
 }
