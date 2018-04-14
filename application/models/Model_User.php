@@ -99,20 +99,22 @@ class Model_User extends MY_Model
         }
     }
 
-    public function show_clients($limit = false, $offset = false)
+    public function show_users_parent()
     {
-        $this->db->select('u.id,u.ident,u.email,u.name,u.surname,g.id as groups_id,g.name as name_groups,u.active');
-        $this->db->from('users u ');
-        $this->db->join('users_groups ug', 'u.id = ug.user_id');
-        $this->db->join('groups g', 'g.id = ug.group_id');
-        $this->db->where('ug.group_id', 3);
-        $this->db->limit($limit, $offset);
+        $this->db->select('u.id,u.email,u.name,u.surname');
+        $this->db->from('users u');
+       // $this->db->join('users_groups ug', 'u.id = ug.user_id');
+       // $this->db->join('groups g', 'g.id = ug.group_id');
+       // $this->db->where('ug.group_id', 3);
+        $this->db->where('u.active', 1);
         $this->db->order_by("date_add", "asc");
         $query = $this->db->get();
 
+       // print($this->db->last_query());exit();
         if ($query->num_rows() > 0) {
             return $query->result_array();
         }
+
     }
 
     public function show_users($limit = false, $offset = false)
@@ -231,6 +233,7 @@ class Model_User extends MY_Model
     public function create_users()
     {
         //Tworzenie uzytkownika
+        $id_parent = $this->input->post('id_parent');
         $email = $this->input->post('email');
         $ident = $this->input->post('ident');
         $password = $this->input->post('password');
@@ -244,6 +247,7 @@ class Model_User extends MY_Model
 
         $data = array(
             'id' => '',
+            'id_parent'=>$id_parent,
             'email' => $email,
             'ident' => $ident,
             'password' => $this->hash_password($password),

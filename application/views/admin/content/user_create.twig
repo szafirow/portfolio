@@ -20,6 +20,15 @@
                         <form role="form" action="{{ base_url('admin/user/create') }}" accept-charset="UTF-8"
                               method="POST" enctype="multipart/form-data">
                             <div class="form-group">
+                                <label for="multiple" class="control-label">Podlega pod:</label>
+                                <select name="id_parent" id="select1-adm">
+                                    <option selected="selected" value="NULL">Brak osoby nadrzędnej </option>
+                                    {% for client in clients %}
+                                        <option value="{{ client.id }}">{{ client.name }} {{ client.surname }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="email">Email:</label>
                                 <input type="text" class="form-control" name="email" id="email" value="@" autofocus>
                             </div>
@@ -42,7 +51,7 @@
 
                             <div class="form-group">
                                 <label for="multiple" class="control-label">Firma:</label>
-                                <select name="company" id="select1-adm">
+                                <select name="company" id="select2-adm">
                                     {% for company in companies %}
                                         <option value="{{ company.id }}">{{ company.name }}</option>
                                     {% endfor %}
@@ -70,7 +79,7 @@
 
                             <div class="form-group">
                                 <label for="multiple" class="control-label">Grupa:</label>
-                                <select name="group" id="select2-adm">
+                                <select name="group" id="select3-adm">
                                     {% for group in groups %}
                                         <option value="{{ group.id }}">{{ group.name }}</option>
                                     {% endfor %}

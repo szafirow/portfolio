@@ -90,6 +90,7 @@ class User extends BackendController
         } else {
             $this->twig->addGlobal("groups", $this->Model_User->show_groups());
             $this->twig->addGlobal("companies", $this->Model_User->show_companies());
+            $this->twig->addGlobal("clients", $this->Model_User->show_users_parent());
             $this->twig->display('admin/index');
         }
 

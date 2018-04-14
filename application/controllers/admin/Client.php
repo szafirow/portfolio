@@ -7,7 +7,7 @@
  */
 
 /**
- * @property Model_User $Model_User
+ * @property Model_Client $Model_Client
  */
 class Client extends BackendController
 {
@@ -23,8 +23,8 @@ class Client extends BackendController
 
         // $this->twig->addGlobal("users", $this->Model_User->show_users());
 
-        $config['base_url'] = base_url() . 'admin/user/index/';
-        $config['total_rows'] = $this->Model_User->count_users();
+        $config['base_url'] = base_url() . 'admin/client/index/';
+        $config['total_rows'] = $this->Model_Client->count_clients($this->id);
         $config['use_page_numbers'] = TRUE;
         $config['per_page'] = 10;
         $config['uri_segment'] = 4;
@@ -56,10 +56,18 @@ class Client extends BackendController
 
         /*var_dump($this->Model_User->show_users($limit, $offset));*/
         $this->twig->addGlobal("pagination", $this->pagination->create_links());
-        $this->twig->addGlobal("clients", $this->Model_User->show_clients($limit, $offset));
+        $this->twig->addGlobal("clients", $this->Model_Client->show_clients($limit, $offset, $this->id));
         $this->twig->display('admin/index');
 
 
+    }
+
+
+    public function show(){
+        $id = $uri = $this->uri->segment(4);
+        $this->Model_Client->deactive_users($id);
+        $this->session->set_flashdata('item', array('message' => 'Konto dezaktywowane!', 'class' => 'danger'));
+        redirect('admin/client');
     }
 
 
