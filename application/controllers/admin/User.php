@@ -212,3 +212,4 @@ class User extends BackendController
 
 
 }
+/* zweryfikowac sprawdzanie hasla duza litera */

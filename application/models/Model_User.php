@@ -121,8 +121,8 @@ class Model_User extends MY_Model
     {
         $this->db->select('u.id,u.ident,u.email,u.name,u.surname,g.id as groups_id,g.name as name_groups,u.active');
         $this->db->from('users u ');
-        $this->db->join('users_groups ug', 'u.id = ug.user_id');
-        $this->db->join('groups g', 'g.id = ug.group_id');
+        $this->db->join('users_groups ug', 'u.id = ug.users_id');
+        $this->db->join('groups g', 'g.id = ug.groups_id');
         $this->db->limit($limit, $offset);
         $this->db->order_by("date_add", "asc");
         $query = $this->db->get();
@@ -202,8 +202,8 @@ class Model_User extends MY_Model
        //to co jest obecnie
         $this->db->select('g.id,g.name');
         $this->db->from('users_groups ug ');
-        $this->db->join('groups g', 'g.id = ug.group_id');
-        $this->db->where('ug.user_id', $id);
+        $this->db->join('groups g', 'g.id = ug.groups_id');
+        $this->db->where('ug.users_id', $id);
         $this->db->limit(1);
         $query1 = $this->db->get();
         $result1 = $query1->result_array();
@@ -212,7 +212,7 @@ class Model_User extends MY_Model
         //to co jest jeszcze nie wybrane
         $this->db->select('gf.id,gf.name');
         $this->db->from('groups gf ');
-        $this->db->where("gf.id NOT IN (SELECT `g`.`id` FROM `users_groups` `ug` JOIN `groups` `g` ON `g`.`id` = `ug`.`group_id` WHERE `ug`.`user_id` = '".$id."') ");
+        $this->db->where("gf.id NOT IN (SELECT `g`.`id` FROM `users_groups` `ug` JOIN `groups` `g` ON `g`.`id` = `ug`.`groups_id` WHERE `ug`.`users_id` = '".$id."') ");
       //  $this->db->order_by("g.name", "desc");
 
         $query2 = $this->db->get();
@@ -266,8 +266,8 @@ class Model_User extends MY_Model
 
         $data = array(
             'id' => '',
-            'user_id' => $id,
-            'group_id' => $group,
+            'users_id' => $id,
+            'groups_id' => $group,
 
         );
         $this->db->insert('users_groups', $data);
@@ -296,7 +296,7 @@ class Model_User extends MY_Model
         $this->db->where('id', $id);
         $this->db->delete('users');
 
-        $this->db->where('user_id', $id);
+        $this->db->where('users_id', $id);
         $this->db->delete('users_groups');
     }
 
@@ -327,10 +327,10 @@ class Model_User extends MY_Model
         $this->db->limit(1);
 
         $data = array(
-            'user_id' => $id,
-            'group_id' => $group,
+            'users_id' => $id,
+            'groups_id' => $group,
         );
-        $this->db->where('user_id', $id);
+        $this->db->where('users_id', $id);
         $this->db->update('users_groups', $data);
 
     }
